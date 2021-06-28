@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(Calculator());
@@ -22,6 +23,54 @@ class SimpleCalculator extends StatefulWidget {
 }
 
 class _SimpleCalculatorState extends State<SimpleCalculator> {
+
+  String eqution ="0";
+  String result ="0";
+  String expression ="";
+  double eqution_fontSize =38.0;
+  double result_fontSize =48.0;
+
+  buttonPressed(String button_text){
+    setState(() {
+      if(button_text == "c"){
+        eqution ="0";
+        result = "0";
+         eqution_fontSize =38.0;
+         result_fontSize =48.0;
+      }else if(button_text=="⇽"){
+        eqution_fontSize =48.0;
+        result_fontSize =38.0;
+        eqution = eqution.substring(0,eqution.length - 1);
+        if(eqution == ""){
+          eqution ="0";
+        }
+      }else if(button_text == "="){
+        eqution_fontSize =38.0;
+        result_fontSize =48.0;
+        expression = eqution;
+        expression = expression.replaceAll('÷', '/');
+        try{
+          Parser p = new Parser();
+          Expression exp = p.parse(expression);
+          ContextModel cm = ContextModel();
+          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+        }catch(e){
+          result = "Error";
+        }
+
+      }else{
+        eqution_fontSize =48.0;
+        result_fontSize =38.0;
+        if(eqution == "0"){
+          eqution = button_text;
+        }else{
+          eqution = eqution + button_text;
+        }
+      }
+    });
+  }
+
+
   Widget buildButton(
       String button_text, double button_height, Color button_colour) {
     return Container(
@@ -35,7 +84,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
               width: 1,
               style: BorderStyle.solid,
             )),
-        onPressed: null,
+        onPressed: ()=> buttonPressed(button_text),
         padding: EdgeInsets.all(16.0),
         child: Text(
           button_text,
@@ -60,16 +109,16 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
             alignment: Alignment.centerRight,
             padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
             child: Text(
-              "0",
-              style: TextStyle(fontSize: 48.0),
+              eqution,
+              style: TextStyle(fontSize: eqution_fontSize),
             ),
           ),
           Container(
             alignment: Alignment.centerRight,
             padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
             child: Text(
-              "0",
-              style: TextStyle(fontSize: 48.0),
+              result,
+              style: TextStyle(fontSize: result_fontSize),
             ),
           ),
           Expanded(
