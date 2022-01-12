@@ -1,9 +1,11 @@
+import 'package:design_part_1/ContentPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 void main() {
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+    home: ContentPage(),
   ));
 }
 
@@ -15,10 +17,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var prolist = ["Burger", "Chesse Dip", "Cola", "Fries"];
+  var sublist = ["Hawkers", "Hawkers", "Mcdonaid", "Mcdonaid"];
+  var priclist = ["\$-2.99", "\$-4.99", "\$-1.49", "\$-4.99"];
+  var imageslist = [
+    "assets/img1.jpeg",
+    "assets/img2.jpeg",
+    "assets/img3.jpeg",
+    "assets/img4.jpeg"
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -82,16 +94,64 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                 )),
-            Container(
-              height: size.height * 0.5,
+            Expanded(
               child: ListView.builder(
-                  itemCount: 100,
+                  itemCount: prolist.length,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, index) {
-                    return Container(
-                      child: Text(
-                        "Hi Mahibul",
-                        style: TextStyle(color: Colors.black),
+                    return Padding(
+                      padding: EdgeInsets.all(size.height * 0.02),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blue,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25))),
+                        height: size.height * 0.1,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  prolist[index],
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.001,
+                                ),
+                                Text(
+                                  sublist[index],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.001,
+                                ),
+                                Text(
+                                  priclist[index],
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            CircleAvatar(
+                                backgroundColor: Colors.black,
+                                maxRadius: size.height * 0.05,
+                                minRadius: size.height * 0.05,
+                                backgroundImage: AssetImage(imageslist[index])),
+                            //Image declear here
+                          ],
+                        ),
                       ),
                     );
                   }),
