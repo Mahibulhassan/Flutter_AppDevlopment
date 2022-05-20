@@ -13,62 +13,60 @@ class _ContentPageState extends State<ContentPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Content Page",
-          style: TextStyle(color: Colors.black),
-        ),
+    title: Text(
+      "Content Page",
+      style: TextStyle(color: Colors.black),
+    ),
       ),
       body: Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  width: size.width*.45,
-                  child: button("Container Widget", context)),
-              SizedBox(
-                width: size.width*.01,
-              ),
-              Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  width: size.width*.45,
-                  child: button("Row And Collum", context))
-            ],
+          Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              width: size.width * .45,
+              child: button("Container Widget", context)),
+          SizedBox(
+            width: size.width * .01,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                  width: size.width*.45,
-                  child: button("Basic List View", context)),
-              SizedBox(
-                width: size.width*.01,
-              ),
-              Container(
-                  width: size.width*.45,
-                  child: button("LIst Widget", context))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                  width: size.width*.45,
-                  child: button("Stack ", context)),
-              SizedBox(
-                width: size.width*.01,
-              ),
-              Container(
-                  width: size.width*.45,
-                  child: button("GridView", context))],
-          ),
+          Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              width: size.width * .45,
+              child: button("Row And Collum", context))
         ],
       ),
-    ));
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              width: size.width * .45,
+              child: button("Basic List View", context)),
+          SizedBox(
+            width: size.width * .01,
+          ),
+          Container(
+              width: size.width * .45,
+              child: button("LIst Widget", context))
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              width: size.width * .45, child: button("Stack ", context)),
+          SizedBox(
+            width: size.width * .01,
+          ),
+          Container(
+              width: size.width * .45, child: button("GridView", context))
+        ],
+      ),
+    ],
+      ),
+    );
   }
 }
 
